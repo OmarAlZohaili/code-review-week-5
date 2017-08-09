@@ -1,162 +1,235 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-	<style type="text/css">
+    <style>
+    /* increased the height so u can see the slide to up button is working */
+    body {
+      background-image: url(http://revelwallpapers.net/d/356F4749616E587230396533656261477A5635346E746967315A6C766E773D3D/beautiful-blue-scenery-ocean-mountains-trees-sky.jpg);
 
-		/* increased the height so u can see the slide to up button is working */
-		body {
-			background-image: url(http://revelwallpapers.net/d/356F4749616E587230396533656261477A5635346E746967315A6C766E773D3D/beautiful-blue-scenery-ocean-mountains-trees-sky.jpg);
+      height: 1000px;
+    }
+    /* animation for the bonus points */
+    .button {
+        position: relative;
+        background-color: grey;
+        border: none;
+        font-size: 15px;
+        color: white;
+        padding: 20px;
+        width: 100px;
+        text-align: center;
+        -webkit-transition-duration: 0.4s; 
+        transition-duration: 0.4s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        height: 60px;
+    }
 
-			height: 1000px;
-		}
-		#inc {
-			background-color: green;
-			height: 30px;
-		}
-		#exp {
-			background-color: red;
-			height: 30px;
-		}
+    .button:after {
+        content: "";
+        background: blue;
+        display: block;
+        position: absolute;
+        padding-top: 300%;
+        padding-left: 350%;
+        margin-left: -20px!important;
+        margin-top: -120%;
+        opacity: 0;
+        transition: all 0.8s
+    }
 
-		#last {
-			text-align: center;
-			width: 50%;
-			margin-left: 25%;
-		}
+    .button:active:after {
+        padding: 0;
+        margin: 0;
+        opacity: 1;
+        transition: 0s
+    }
 
-		#last h3 {
-			background-color: grey;
-		}
+    /* slide up css */
+    #myBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 10px;
+    }
 
- 
-		/* animation for the bonus points */
-		.button {
-		    position: relative;
-		    background-color: grey;
-		    border: none;
-		    font-size: 15px;
-		    color: #FFFFFF;
-		    padding: 20px;
-		    width: 100px;
-		    text-align: center;
-		    -webkit-transition-duration: 0.4s; 
-		    transition-duration: 0.4s;
-		    text-decoration: none;
-		    overflow: hidden;
-		    cursor: pointer;
-		    height: 60px;
-		}
+    #myBtn:hover {
+      background-color: #555;
+    }
 
-		.button:after {
-		    content: "";
-		    background: blue;
-		    display: block;
-		    position: absolute;
-		    padding-top: 300%;
-		    padding-left: 350%;
-		    margin-left: -20px!important;
-		    margin-top: -120%;
-		    opacity: 0;
-		    transition: all 0.8s
-		}
 
-		.button:active:after {
-		    padding: 0;
-		    margin: 0;
-		    opacity: 1;
-		    transition: 0s
-		}
-
-		/* slide up css */
-		#myBtn {
-		  display: none;
-		  position: fixed;
-		  bottom: 20px;
-		  right: 30px;
-		  z-index: 99;
-		  border: none;
-		  outline: none;
-		  background-color: red;
-		  color: white;
-		  cursor: pointer;
-		  padding: 15px;
-		  border-radius: 10px;
-		}
-
-		#myBtn:hover {
-		  background-color: #555;
-		}
-	</style>
-
+    #header {
+        height: 250px;
+    }
+    #header p {
+      height: 50px;
+      font-size: 20px;
+    }
+    
+    
+    #totalIncome {
+      background-color: green;
+    }
+    #totalExpenses {
+      background-color: red;  
+    }
+    
+    th {
+      font-size: 25px;
+    }
+    
+    #exp {
+      font-style: italic;
+      background-color: #FFA07A;
+      font-size: 20px;
+      color: black;
+    }
+    #inc {
+      font-style: italic;
+      background-color: #00FF00;
+      font-size: 20px;
+      color: black;
+    }
+    </style>
 </head>
 
 <body>
+  <h2 style="text-align: center;">welcome to budget calculater</h2>
+  <h3 style="text-align: center;">want us to calculate ur budget? just put ur income and expenses in the drop down menu</h3>
+    
 
-	
-	
-	<h2 style="text-align: center;">welcome to budget calculater</h2>
-	<h3 style="text-align: center;">want us to calculate ur budget? just put ur income and expenses in the drop down menu</h3>
-
-	<!-- drop down menu  with bootstrap-->
-	<div class="container-fluid">
-		<div class="row" id="inputValues">
-			<div class="dropdown">
-				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">choose income or expenses
-			    <span class="caret"></span></button>
-			    <ul class="dropdown-menu">
-			      <li><a href="#">income</a></li>
-			      <li><a href="#">expenses</a></li>
-			    </ul>
-			</div>
-
-		    <div  id="loto" class="col-md-6 col-md-offset-3"">
-			    <input id="test1" type="text" class="inputText">things
-			    <br>
-			    <input  id="test2" type="number" class="inputNumber">the amount of money
-			    <br>
-			    <button onclick="myFunction()" type="submit" class="submitBtn button">submit</button>
-			    <br>
-			    <p id="message"></p>
-		    </div>
-	    </div>
+  <!-- drop down menu  with bootstrap-->
+  <div class='container-fluid'>
+        <div class='row' id='header'>
+            <div class='col-lg-5'>
+                <p id="date">Available Budget</p>
+                <p id="total">0</p>
+                <p id="totalIncome">0</p>
+                <p id="totalExpenses">0</p>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">choose income or expenses
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" id='dropdown'>
+                    <li><a href='#'>Income</a></li>
+                    <li><a href='#'>Expenses</a></li>
+                </ul>
+            </div>
+            <div class='col-md-6 col-md-offset-3'>
+                <input type='text' id='text1' placeholder='things'>
+                <input type='number' id='text2' placeholder='the amount of money'>
+                <button type="submit" class='submitBtn button' onclick='myFunction()'>submit</button>
+                <br><p id="message"></p>
+            </div>
+        </div>
+        <div class='row' id='outputValues'>
+            <div class='col-lg-2'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style='background-color:green'>Income</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inc">
+                        <tr>
+                            <td id='textIncome'></td>
+                            <td id='priceIncome'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class='col-lg-2 col-lg-offset-8'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style='background-color:red'>Expenses</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exp">
+                        <tr>
+                            <td id='textExpenses'></td>
+                            <td id='priceExpenses'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <script>
+    $(".dropdown-menu li a").click(function() {
+        $('.selectedLi').removeClass('selectedLi');
+        $(this).addClass('selectedLi');
+        var dropDown = $(this).text();
+        $(this).parents('.btn-group').find('.dropdown-toggle').html(dropDown +
+            ' <span class="caret"></span>');
+    });
+    function myFunction() {
 
-	<div class="container-fluid">
-		<div class="row">
-			<div id="inc" class="col-lg-2">Income</div>
-			<div id="exp" class="col-lg-2 col-lg-offset-8">Expenses</div>
-		</div>
-	</div>
-
-	<!-- Responsive Grid System u can check in the style-->
-	<div id="last">
-		<h3>your available budget</h3>
-	</div>
-
-
-	
-
-	
-<script>
+      /*var text = document.getElementById("text1").value;
+      var price = document.getElementById("text2").value;
+      var newdiv = document.createElement("p");
+      newdiv.appendChild(document.createTextNode(text));
+      newdiv.appendChild(document.createTextNode(price));
+      document.body.appendChild(newdiv);*/
 
 
-	
 
-	// try and catch +  correct use of type conversion
+        var dropDown = $('.dropdown-menu li a.selectedLi').text();
+        var text = document.getElementById('text1').value;
+        var price = document.getElementById('text2').value;
+        var sumIncome = +price;
+        var sumExpenses = +price;
 
-	function myFunction() {
-    var message, x;
+
+
+        
+        
+        if (dropDown === "Income") {
+          var table = document.getElementById("inc");
+          var row = table.insertRow(0);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = text;
+          cell2.innerHTML = price;
+          document.getElementById('totalIncome').innerHTML = sumIncome;
+          } else {
+          var table = document.getElementById("exp");
+          var row = table.insertRow(0);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = text;
+          cell2.innerHTML = price;
+          document.getElementById('totalExpenses').innerHTML = sumExpenses;
+          };
+          var sumTotal = sumIncome - sumExpenses;
+          document.getElementById('total').innerHTML = sumTotal;
+        
+
+        //try and catch
+        var message, x;
     message = document.getElementById("message");
     message.innerHTML = "";
-    x = document.getElementById("test2").value;
+    x = document.getElementById("text2").value;
     try { 
         if(x == "")  throw "empty";
         x = Number(x);
@@ -164,39 +237,34 @@
         if(x > 10000)   throw "too high";
     }
     catch(err) {
-        message.innerHTML = "Input is " + err;
+      message.innerHTML = "the amount is " + err;
     }
-}
+    }
 
 
 
-/* slide to up functions */
-	window.onscroll = function() {scrollFunction()};
 
-	function scrollFunction() {
-	    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-	    	
-	        document.getElementById("myBtn").style.display = "block";
-	    } else {
-	        document.getElementById("myBtn").style.display = "none";
-	    }
-	}
+    /* slide to up functions */
+  window.onscroll = function() {scrollFunction()};
 
-
-	function topFunction() {
-	    document.body.scrollTop = 0;
-	    document.documentElement.scrollTop = 0;
-	}
-
-	
+  function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        
+          document.getElementById("myBtn").style.display = "block";
+      } else {
+          document.getElementById("myBtn").style.display = "none";
+      }
+  }
 
 
-		
-	
-</script>
+  function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+  }
+    </script>
 
-	<!-- the button for slide up -->
-	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-
+    <!-- the button for slide up -->
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </body>
+
 </html>
