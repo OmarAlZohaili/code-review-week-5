@@ -49,10 +49,10 @@
     }
 
     .button:active:after {
-        padding: 0;
-        margin: 0;
-        opacity: 1;
-        transition: 0s
+	    padding: 0;
+	    margin: 0;
+	    opacity: 1;
+	    transition: 0s
     }
 
     /* slide up css */
@@ -194,39 +194,39 @@
 
 
 
-        var dropDown = $('.dropdown-menu li a.selectedLi').text();
-        var text = document.getElementById('text1').value;
-        var price = document.getElementById('text2').value;
-        var sumIncome = +price;
-        var sumExpenses = +price;
+    var dropDown = $('.dropdown-menu li a.selectedLi').text();
+    var text = document.getElementById('text1').value;
+    var price = document.getElementById('text2').value;
+    var sumIncome = +price;
+    var sumExpenses = +price;
 
 
 
         
         
-        if (dropDown === "Income") {
-          var table = document.getElementById("inc");
-          var row = table.insertRow(0);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          cell1.innerHTML = text;
-          cell2.innerHTML = price;
-          document.getElementById('totalIncome').innerHTML = sumIncome;
-          } else {
-          var table = document.getElementById("exp");
-          var row = table.insertRow(0);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          cell1.innerHTML = text;
-          cell2.innerHTML = price;
-          document.getElementById('totalExpenses').innerHTML = sumExpenses;
-          };
-          var sumTotal = sumIncome - sumExpenses;
-          document.getElementById('total').innerHTML = sumTotal;
+    if (dropDown === "Income") {
+      var table = document.getElementById("inc");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = text;
+      cell2.innerHTML = price;
+      document.getElementById('totalIncome').innerHTML = sumIncome;
+      } else {
+      var table = document.getElementById("exp");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = text;
+      cell2.innerHTML = price;
+      document.getElementById('totalExpenses').innerHTML = sumExpenses;
+      };
+      var sumTotal = sumIncome - sumExpenses;
+      document.getElementById('total').innerHTML = sumTotal;
         
 
         //try and catch
-        var message, x;
+    var message, x;
     message = document.getElementById("message");
     message.innerHTML = "";
     x = document.getElementById("text2").value;
